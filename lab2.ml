@@ -47,7 +47,7 @@ Now implement the two functions curry and uncurry.
 (* takes an uncurried function and returns it in curried form *)
 let curry (f : (('a * 'b) -> 'c)) : ('a -> ('b -> 'c)) = 
   fun (x : 'a) -> 
-    fun (y : 'b) -> f(x,y)
+    fun (y : 'b) -> f(x,y) ;;
 
 
      
@@ -167,9 +167,9 @@ What is calc_option's function signature? Implement calc_option.
 let calc_option (f : int -> int -> int) (x : int option) (y : int option) : int option =
   match x, y with
   | None, None -> None
-  | None, y -> None
-  | x, None -> None
-  | Some x, Some y -> f x y
+  | None, y -> x
+  | x, None -> y
+  | Some x, Some y -> Some (f x y) ;;
      
 (*......................................................................
 Exercise 8: Now rewrite min_option and max_option using the higher-order
