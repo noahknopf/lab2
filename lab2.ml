@@ -67,11 +67,12 @@ Using your uncurry function, define uncurried plus and times
 functions.
 ......................................................................*)
 
-let plus =
-  fun _ -> failwith "plus not implemented"
+let plus : (int * int) -> int =
+  uncurry (+) ;;
+
      
-let times =
-  fun _ -> failwith "times not implemented" ;;
+let times : (int * int) -> int =
+  uncurry ( * ) ;;
   
 (*......................................................................
 Exercise 3: Recall the prods function from Lab 1:
@@ -130,8 +131,12 @@ useful.
 ......................................................................*)
 
 let min_option (x : int option) (y : int option) : int option =
-  failwith "min_option not implemented" ;;
-     
+  match x,y with
+  | None, None -> None
+  | x, None ->  x
+  | None, y -> y
+  | Some x, Some y -> Some (min x y) ;;
+
 (*......................................................................
 Exercise 6: Write a function to return the larger of two int options, or
 None if both are None. If exactly one argument is None, return the
@@ -159,8 +164,12 @@ result appropriately returned.
 What is calc_option's function signature? Implement calc_option.
 ......................................................................*)
 
-let calc_option =
-  fun _ -> failwith "calc_option not implemented" ;;
+let calc_option (f : int -> int -> int) (x : int option) (y : int option) : int option =
+  match x, y with
+  | None, None -> None
+  | None, y -> None
+  | x, None -> None
+  | Some x, Some y -> f x y
      
 (*......................................................................
 Exercise 8: Now rewrite min_option and max_option using the higher-order
